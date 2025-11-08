@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { ExternalLink, Cloud } from 'lucide-react';
+import { ExternalLink, Cloud, Github, Star } from 'lucide-react';
 
 const projects = [
   {
@@ -8,7 +8,16 @@ const projects = [
       'A modern image hosting service designed for speed and simplicity with a focus on cloud-native infrastructure.',
     url: 'https://cloudkuimages.guru',
     icon: Cloud,
+    stars: '1.2k',
     tags: ['Cloud', 'Next.js', 'Edge'],
+  },
+  {
+    title: 'Portfolio v2',
+    description: 'Animated portfolio with 3D hero, theme sync, and motion interactions.',
+    url: '#',
+    icon: Star,
+    stars: '320',
+    tags: ['React', 'Framer Motion', 'Spline'],
   },
 ];
 
@@ -31,8 +40,8 @@ export default function Projects() {
             <motion.a
               key={p.title}
               href={p.url}
-              target="_blank"
-              rel="noreferrer"
+              target={p.url.startsWith('http') ? '_blank' : undefined}
+              rel={p.url.startsWith('http') ? 'noreferrer' : undefined}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -49,11 +58,18 @@ export default function Projects() {
               <p className="mt-3 text-sm text-zinc-600 dark:text-zinc-300">{p.description}</p>
               <div className="mt-4 flex flex-wrap gap-2">
                 {p.tags.map((t) => (
-                  <span key={t} className="text-xs px-2 py-1 rounded-md bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 border border-zinc-200 dark:border-zinc-700">
+                  <span
+                    key={t}
+                    className="text-xs px-2 py-1 rounded-md bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 border border-zinc-200 dark:border-zinc-700"
+                  >
                     {t}
                   </span>
                 ))}
               </div>
+              <div className="mt-4 flex items-center gap-3 text-xs text-zinc-500 dark:text-zinc-400">
+                <span className="inline-flex items-center gap-1"><Github className="w-3.5 h-3.5" />{p.stars} stars</span>
+              </div>
+              <div className="pointer-events-none absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity bg-gradient-to-br from-blue-500/10 via-purple-500/10 to-pink-500/10" />
             </motion.a>
           ))}
         </div>
